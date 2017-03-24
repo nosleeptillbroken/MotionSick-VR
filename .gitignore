@@ -1,17 +1,17 @@
 # =============== #
 # Unity generated #
 # =============== #
-/Temp/
-/Obj/
-/UnityGenerated/
-/Library/
-/Temp/
-/Build/
-/Builds/
-/Assets/AssetStoreTools*
-/Assets/Rewired/Documentation
-/ProjectSettings/ProjectSettings.asset
-/ProjectSettings/ProjectVersion.txt
+Temp/
+Obj/
+UnityGenerated/
+Library/
+Temp/
+Build/
+Builds/
+Assets/AssetStoreTools*
+Assets/Rewired/Documentation
+ProjectSettings/ProjectSettings.asset
+ProjectSettings/ProjectVersion.txt
 !*.dll
 
 # Unity3D generated meta files
