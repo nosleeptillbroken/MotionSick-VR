@@ -32,9 +32,45 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
-        rewiredPlayer = ReInput.players.GetPlayer(playerId);
-        playerCam = this.gameObject.GetComponentInChildren<Camera>();
-        CharController = this.GetComponent<CharacterController>();
+        if (GameObject.Find("Rewired Input Manager") == null)
+        {
+            Debug.Log(
+                "Could not find Input manager, please make sure it is present and active within the scene! Quitting game...");
+            Quit();
+        }
+        else
+            rewiredPlayer = ReInput.players.GetPlayer(playerId);
+
+       
+        if (this.GetComponent<CharacterController>() == null)
+        {
+            Debug.Log("No [Active] Character Controller found. Adding one...");
+            this.gameObject.AddComponent<CharacterController>();
+            CharController = this.GetComponent<CharacterController>();
+        }
+        else
+            CharController = this.GetComponent<CharacterController>();
+        
+
+        if (this.GetComponentInChildren<Camera>() == null)
+        {
+            Debug.Log("No [Active] Camera found. Adding one...");
+            GameObject obj = new GameObject();
+            obj.transform.parent = this.gameObject.transform;
+            obj.AddComponent<Camera>();
+            obj.transform.localPosition = new Vector3(0f, 1f, 0f);
+            obj.tag = "MainCamera";
+            obj.name = "NewMainCamera";
+            playerCam = obj.GetComponent<Camera>();
+        }
+        else
+            playerCam = this.gameObject.GetComponentInChildren<Camera>();
+        
+    }
+
+    void Start()
+    {
+        
     }
 
     void GetInputs()
@@ -120,4 +156,13 @@ public class PlayerController : MonoBehaviour
         lookSensitivity = sensitivity;
     }
     #endregion
+
+    public static void Quit()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+         Application.Quit();
+#endif
+    }
 }
