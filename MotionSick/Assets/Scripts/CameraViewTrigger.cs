@@ -26,13 +26,13 @@ public class CameraViewTrigger : MonoBehaviour {
         {
             if(framesVisible == 0)
             {
-                gameObject.SendMessageUpwards("onViewEnter", e, SendMessageOptions.DontRequireReceiver);
+                gameObject.SendMessageUpwards("OnViewEnter", e, SendMessageOptions.DontRequireReceiver);
                 framesVisible = 1;
                 timeVisible = Time.deltaTime;
             }
             else
             {
-                gameObject.SendMessageUpwards("onViewStay", e, SendMessageOptions.DontRequireReceiver);
+                gameObject.SendMessageUpwards("OnViewStay", e, SendMessageOptions.DontRequireReceiver);
                 framesVisible += 1;
                 timeVisible += Time.deltaTime;
             }
@@ -41,7 +41,7 @@ public class CameraViewTrigger : MonoBehaviour {
         {
             if(framesVisible != 0)
             {
-                gameObject.SendMessageUpwards("onViewExit", e, SendMessageOptions.DontRequireReceiver);
+                gameObject.SendMessageUpwards("OnViewExit", e, SendMessageOptions.DontRequireReceiver);
                 framesVisible = 0;
                 timeVisible = 0.0f;
             }
