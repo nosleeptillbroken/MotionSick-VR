@@ -7,12 +7,11 @@ public class CameraViewTrigger : MonoBehaviour {
 
     public Camera viewer;
 
-    public ulong framesVisible { get; private set; }
-    public float timeVisible { get; private set; }
+    private ulong framesVisible = 0;
+    private float timeVisible = 0.0f;
 
-    void Awake() {
-        framesVisible = 0;
-        timeVisible = 0.0f;
+    void Awake()
+    {
         if (viewer == null) viewer = Camera.main;
     }
 	
