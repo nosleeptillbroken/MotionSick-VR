@@ -8,50 +8,46 @@ public class CameraViewTrigger : MonoBehaviour {
     public Camera viewer;
 
     public ulong framesVisible { get; private set; }
+    public float timeVisible { get; private set; }
 
     void Awake() {
         framesVisible = 0;
+        timeVisible = 0.0f;
         if (viewer == null) viewer = Camera.main;
     }
 	
-	void Update () {
-        if(isVisibleFrom(viewer))
+	void Update ()
+    {
+        VisibleEvent e = new VisibleEvent();
+        e.camera = viewer;
+        e.time = timeVisible;
+        e.frames = framesVisible;
+
+        if (isVisibleFrom(viewer))
         {
             if(framesVisible == 0)
             {
-                gameObject.SendMessageUpwards("onViewEnter", viewer, SendMessageOptions.DontRequireReceiver);
+                gameObject.SendMessageUpwards("onViewEnter", e, SendMessageOptions.DontRequireReceiver);
                 framesVisible = 1;
+                timeVisible = Time.deltaTime;
             }
             else
             {
-                gameObject.SendMessageUpwards("onViewStay", viewer, SendMessageOptions.DontRequireReceiver);
+                gameObject.SendMessageUpwards("onViewStay", e, SendMessageOptions.DontRequireReceiver);
                 framesVisible += 1;
+                timeVisible += Time.deltaTime;
             }
         }	
         else
         {
             if(framesVisible != 0)
             {
-                gameObject.SendMessageUpwards("onViewExit", viewer, SendMessageOptions.DontRequireReceiver);
+                gameObject.SendMessageUpwards("onViewExit", e, SendMessageOptions.DontRequireReceiver);
                 framesVisible = 0;
+                timeVisible = 0.0f;
             }
         }	
 	}
-
-    void onViewEnter(Camera camera)
-    {
-        Debug.Log("onViewEnter due to " + camera.gameObject.name);
-    }
-
-    void onViewStay(Camera camera)
-    {
-        Debug.Log("onViewStay due to " + camera.gameObject.name);
-    }
-
-    void onViewExit(Camera camera)
-    {
-        Debug.Log("onViewExit due to " + camera.gameObject.name);
-    }
 
     bool isVisibleFrom(Camera camera)
     {

@@ -186,6 +186,7 @@ GameObject:
   - component: {fileID: 542496070}
   - component: {fileID: 542496073}
   - component: {fileID: 542496074}
+  - component: {fileID: 542496075}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -303,6 +304,18 @@ HingeJoint:
   m_BreakTorque: Infinity
   m_EnableCollision: 1
   m_EnablePreprocessing: 1
+--- !u!114 &542496075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 542496068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c9d1fd4291353940b067fda5842934c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewer: {fileID: 0}
 --- !u!1 &824874068
 GameObject:
   m_ObjectHideFlags: 0
