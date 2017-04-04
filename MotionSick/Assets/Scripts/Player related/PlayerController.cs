@@ -4,8 +4,17 @@ using UnityEngine;
 using Rewired;
 using Rewired.UI.ControlMapper;
 
+
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(CapsuleCollider))]
+[RequireComponent(typeof(PlayerDeath))]
+[RequireComponent(typeof(PlayerAttributes))]
+
+
 public class PlayerController : MonoBehaviour
 {
+    
+
     //movement variables
     [SerializeField] float moveSpeed;
     private Vector2 moveVector;
@@ -51,19 +60,13 @@ public class PlayerController : MonoBehaviour
         else
             rewiredPlayer = ReInput.players.GetPlayer(playerId);
 
-        if (this.GetComponent<PlayerAttributes>() == null) //may change in the future, adding functionality for now.
+        if (this.GetComponent<PlayerAttributes>().GetHealth() == 0) //may change in the future, adding functionality for now.
         {
-            Debug.Log("No [active] PlayerAttributes script! Adding one...");
-            gameObject.AddComponent<PlayerAttributes>();
+            Debug.Log("Player Health is 0! Adjusting to 2...");
             this.GetComponent<PlayerAttributes>().SetHealth(2);
         }
 
-        if (this.GetComponent<PlayerDeath>() == null)
-        {
-            Debug.Log("No [active] PlayerDeath script! Adding one...");
-        }
-
-        if (this.GetComponent<Rigidbody>() == null)
+        if (this.GetComponent<Rigidbody>() == null) //redundant now that require component is in place
         {
             Debug.Log("No [active] RigidBody found. Adding one...");
             this.gameObject.AddComponent<Rigidbody>();
@@ -72,7 +75,18 @@ public class PlayerController : MonoBehaviour
             CharRB.constraints = RigidbodyConstraints.FreezeRotation;
         }
         else
+        {
             CharRB = this.GetComponent<Rigidbody>();
+            CharRB.mass = 5;
+            CharRB.constraints = RigidbodyConstraints.FreezeRotation;
+        }
+
+        if (this.gameObject.GetComponent<CapsuleCollider>().height != 2)
+        {
+            Debug.Log("Collider height not set to 2! Adjusting now...");
+            this.gameObject.GetComponent<CapsuleCollider>().height = 2;
+        }
+            
         
 
         if (this.GetComponentInChildren<Camera>() == null)
