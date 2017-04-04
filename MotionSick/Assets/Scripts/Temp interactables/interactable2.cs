@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class interactable1 : MonoBehaviour
+public class interactable2 : MonoBehaviour
 {
 
     private bool animate = false;
-    private float scale;
+    private float scale = 1f;
 
     void OnTriggerEnter(Collider other)
     {
@@ -36,8 +36,8 @@ public class interactable1 : MonoBehaviour
     {
         if (animate)
         {
-            scale += Time.deltaTime*2;
-            this.gameObject.transform.localScale = new Vector3(1f + Mathf.Sin(scale),1f + Mathf.Cos(scale),1f);
+            //scale += Time.deltaTime*2;
+            gameObject.transform.Rotate(0f,0f, scale);
         }
     }
 }

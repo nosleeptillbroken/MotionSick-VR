@@ -113,7 +113,7 @@ public class PlayerController : MonoBehaviour
             joystickLookSensitivity = DefaultJoystickLookSensitivity;
         }
 
-        Cursor.lockState = CursorLockMode.Locked; //so you don't interact with random things. Press esc to show mouse cursor again
+        Cursor.lockState = CursorLockMode.Locked; //so you don't interact with random things. Press escape to show mouse cursor again
         
     }
 
@@ -135,15 +135,8 @@ public class PlayerController : MonoBehaviour
     void ProcessInputs()
     {
         FBVector = gameObject.transform.forward*moveSpeed*moveVector.y;
-        if (moveVector.y != 0) //moving forward or back
-        {
-            this.GetComponent<Rigidbody>().velocity = FBVector;
-        }
 
-        if (rewiredPlayer.GetAxis("Move Horizontal") != 0) //strafing left or right
-        {
-            this.GetComponent<Rigidbody>().velocity = (gameObject.transform.right*(moveSpeed/4)*moveVector.x) + FBVector;
-        }
+        this.GetComponent<Rigidbody>().velocity = (gameObject.transform.right * (moveSpeed / 2) * moveVector.x) + FBVector; //could be a problem in the future if we need to jump (velocity on the y axis would alway get set to 0
 
         if (interacting) //player presses interact
         {
@@ -177,6 +170,8 @@ public class PlayerController : MonoBehaviour
             camX = Mathf.Clamp(camX, minY, maxY);
             playerCam.transform.localEulerAngles = new Vector3(-camX, 0f, 0f);
         }
+
+        
 
     }
 
