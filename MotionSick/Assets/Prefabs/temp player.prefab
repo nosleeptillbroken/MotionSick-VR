@@ -204,7 +204,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65132a71ad903644e97bdf5de82df099, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: 2
 --- !u!114 &114957478039771742
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -236,7 +235,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 0.3
+  m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}

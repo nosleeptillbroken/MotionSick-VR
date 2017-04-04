@@ -81,10 +81,16 @@ public class PlayerController : MonoBehaviour
             CharRB.constraints = RigidbodyConstraints.FreezeRotation;
         }
 
-        if (this.gameObject.GetComponent<CapsuleCollider>().height != 2)
+        if (this.gameObject.GetComponent<CapsuleCollider>().height != 1.8f)
         {
             Debug.Log("Collider height not set to 2! Adjusting now...");
-            this.gameObject.GetComponent<CapsuleCollider>().height = 2;
+            this.gameObject.GetComponent<CapsuleCollider>().height = 1.8f;
+        }
+
+        if (this.gameObject.GetComponent<CapsuleCollider>().radius != 0.3)
+        {
+            Debug.Log("Collider radius not set to 0.3! Adjusting now...");
+            this.gameObject.GetComponent<CapsuleCollider>().radius = 0.3f;
         }
             
         
