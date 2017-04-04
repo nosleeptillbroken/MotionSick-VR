@@ -6,7 +6,7 @@ public class PlayerAttributes : MonoBehaviour
 {
 
     // How many hits you can take before dying
-    public int playerHealth;
+    private int playerHealth;
 
     void Start()
     {
@@ -35,5 +35,21 @@ public class PlayerAttributes : MonoBehaviour
             }
         }
     }
+
+    #region Getters
+
+    public int GetHealth()
+    {
+        return playerHealth;
+    }
+    #endregion
+
+    #region Setters
+
+    public void SetHealth(int val)
+    {
+        playerHealth = val;
+    }
+    #endregion
 
 }
