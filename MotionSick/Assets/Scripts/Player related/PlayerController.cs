@@ -7,18 +7,19 @@ using Rewired.UI.ControlMapper;
 public class PlayerController : MonoBehaviour
 {
     //movement variables
-    [SerializeField] int moveSpeed;
+    [SerializeField] float moveSpeed;
     private Vector2 moveVector;
+    private Vector3 FBVector; //forward and back vector
 
     //camera variables
     private Camera playerCam;
-    private CharacterController CharController;
+    private Rigidbody CharRB;
     private float cameraPan;
     private float cameraTilt;
     private float joystickCameraPan;
     private float joystickCameraTilt;
-    [SerializeField] int lookSensitivity;
-    [SerializeField] int joystickLookSensitivity;
+    [SerializeField] float lookSensitivity;
+    [SerializeField] float joystickLookSensitivity;
     private float minY = -45f;
     private float maxY = 35f;
     float camX;
@@ -29,6 +30,15 @@ public class PlayerController : MonoBehaviour
     //rewired variables
     private Player rewiredPlayer;
     private int playerId = 0;
+
+    //interactable variables
+    private GameObject interactableObject;
+
+    //default values
+    [SerializeField] private bool useDefaultValues = true;
+    private float DefaultLookSensitivity = 15;
+    private float DefaultJoystickLookSensitivity = 125;
+    private float DefaultMoveSpeed = 10;
 
     void Awake()
     {
@@ -41,20 +51,33 @@ public class PlayerController : MonoBehaviour
         else
             rewiredPlayer = ReInput.players.GetPlayer(playerId);
 
-       
-        if (this.GetComponent<CharacterController>() == null)
+        if (this.GetComponent<PlayerAttributes>() == null) //may change in the future, adding functionality for now.
         {
-            Debug.Log("No [Active] Character Controller found. Adding one...");
-            this.gameObject.AddComponent<CharacterController>();
-            CharController = this.GetComponent<CharacterController>();
+            Debug.Log("No [active] PlayerAttributes script! Adding one...");
+            gameObject.AddComponent<PlayerAttributes>();
+            this.GetComponent<PlayerAttributes>().SetHealth(2);
+        }
+
+        if (this.GetComponent<PlayerDeath>() == null)
+        {
+            Debug.Log("No [active] PlayerDeath script! Adding one...");
+        }
+
+        if (this.GetComponent<Rigidbody>() == null)
+        {
+            Debug.Log("No [active] RigidBody found. Adding one...");
+            this.gameObject.AddComponent<Rigidbody>();
+            CharRB = this.GetComponent<Rigidbody>();
+            CharRB.mass = 5;
+            CharRB.constraints = RigidbodyConstraints.FreezeRotation;
         }
         else
-            CharController = this.GetComponent<CharacterController>();
+            CharRB = this.GetComponent<Rigidbody>();
         
 
         if (this.GetComponentInChildren<Camera>() == null)
         {
-            Debug.Log("No [Active] Camera found. Adding one...");
+            Debug.Log("No [active] Camera found. Adding one...");
             GameObject obj = new GameObject();
             obj.transform.parent = this.gameObject.transform;
             obj.AddComponent<Camera>();
@@ -65,11 +88,32 @@ public class PlayerController : MonoBehaviour
         }
         else
             playerCam = this.gameObject.GetComponentInChildren<Camera>();
-        
-    }
 
-    void Start()
-    {
+        if (this.gameObject.tag != "Player")
+        {
+            Debug.Log("Player's tag set incorrectly! Adjusting now...");
+            this.gameObject.tag = "Player";
+        }
+
+        if (useDefaultValues && moveSpeed == 0)
+        {
+            Debug.Log("Using default move speed of: " + DefaultMoveSpeed + "...");
+            moveSpeed = DefaultMoveSpeed;
+        }
+
+        if (useDefaultValues && lookSensitivity == 0)
+        {
+            Debug.Log("Using default look sensitivity of: " + DefaultLookSensitivity + "...");
+            lookSensitivity = DefaultLookSensitivity;
+        }
+
+        if (useDefaultValues && joystickLookSensitivity == 0)
+        {
+            Debug.Log("Using default joystick look sensitivity of: " + DefaultJoystickLookSensitivity + "...");
+            joystickLookSensitivity = DefaultJoystickLookSensitivity;
+        }
+
+        Cursor.lockState = CursorLockMode.Locked; //so you don't interact with random things. Press esc to show mouse cursor again
         
     }
 
@@ -90,19 +134,21 @@ public class PlayerController : MonoBehaviour
 
     void ProcessInputs()
     {
+        FBVector = gameObject.transform.forward*moveSpeed*moveVector.y;
         if (moveVector.y != 0) //moving forward or back
         {
-            CharController.SimpleMove(gameObject.transform.forward * moveSpeed * moveVector.y);
+            this.GetComponent<Rigidbody>().velocity = FBVector;
         }
 
         if (rewiredPlayer.GetAxis("Move Horizontal") != 0) //strafing left or right
         {
-            CharController.SimpleMove(gameObject.transform.right*(moveSpeed/2)*moveVector.x);
+            this.GetComponent<Rigidbody>().velocity = (gameObject.transform.right*(moveSpeed/4)*moveVector.x) + FBVector;
         }
 
         if (interacting) //player presses interact
         {
-            Debug.Log("Interacted");
+            //Debug.Log("Interacted");
+            InteractInput();
         }
 
         else if (cameraPan > 1 || cameraPan < 1) //looking up or down
@@ -134,6 +180,14 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    void InteractInput()
+    {
+        if (interactableObject != null)
+            interactableObject.SendMessage("Interact");
+        else
+            Debug.Log("There is nothing to interact with at the moment.");
+    }
+
 	// Update is called once per frame
 	void Update ()
 	{
@@ -143,9 +197,14 @@ public class PlayerController : MonoBehaviour
 
     #region Getters
 
-    public int GetLookSensitivity()
+    public float GetLookSensitivity()
     {
         return lookSensitivity;
+    }
+
+    public GameObject GetInteractable()
+    {
+        return interactableObject;
     }
     #endregion
 
@@ -154,6 +213,11 @@ public class PlayerController : MonoBehaviour
     public void SetLookSensitivity(int sensitivity)
     {
         lookSensitivity = sensitivity;
+    }
+
+    public void SetInteractableObject(GameObject newObj)
+    {
+        interactableObject = newObj;
     }
     #endregion
 
