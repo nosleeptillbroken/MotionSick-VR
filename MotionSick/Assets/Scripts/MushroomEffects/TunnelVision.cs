@@ -35,7 +35,7 @@ public class TunnelVision : Effect {
         }
         else if (On)
         {
-            vignette.intensity = (max * intensity) * Mathf.Sin(toRad(Time.time - time) / loopTime) + (max * intensity) + 0.15f;
+            vignette.intensity = (-max * intensity) * Mathf.Cos(toRad(Time.time - time) / loopTime) + (max * intensity) + 0.15f;
             previous = vignette.intensity;
         }
         else if (turningOff && previous > 0)
