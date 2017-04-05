@@ -9,22 +9,31 @@ public class Effect {
     public bool On = false;
 
     protected float time;
+    protected float lastIntensity;
+    protected float killTime = 3f;
+    protected bool turningOff = false;
 
     public virtual void turnOn()
     {
+        time = Time.time;
+        On = true;
+
         init();
     }
 
     public virtual void turnOff()
-    { }
-
-    public virtual void init()
     {
-        time = Time.time;
+        On = false;
+        turningOff = true;
     }
 
-    public virtual void run(float intensity)
+    public virtual void init()
     { }
+
+    public virtual void run(float intensity)
+    {
+        lastIntensity = intensity;
+    }
 
     public float toRad(float degrees)
     {

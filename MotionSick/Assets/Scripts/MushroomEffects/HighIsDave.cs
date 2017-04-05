@@ -26,16 +26,21 @@ public class HighIsDave : MonoBehaviour {
             effect.On = true;
             Debug.Log(effect.On);
         }
+
+        StartCoroutine(randomOff());
     }
 	
 	// Update is called once per frame
 	void Update () {
 		foreach(Effect effect in Effects)
         {
-            if (effect.On)
-            {
-                effect.run(intensity);
-            }
+            effect.run(intensity);
         }
 	}
+
+    IEnumerator randomOff()
+    {
+        yield return new WaitForSeconds(5);
+        Effects[0].turnOff();
+    }
 }
