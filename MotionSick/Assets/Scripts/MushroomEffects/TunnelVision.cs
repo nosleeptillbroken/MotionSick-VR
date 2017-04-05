@@ -15,18 +15,25 @@ public class TunnelVision : Effect {
     public override void turnOn()
     {
         vignette = Cam.GetComponent<VignetteAndChromaticAberration>();
-        killTime = 10f;
+        killTime = 5f;
         loopTime = 20f;
         fadingIn = true;
         On = true;
         t = Time.time + 2;
     }
 
+    public override void turnOff()
+    {
+        On = false;
+        turningOff = true;
+        t = Time.time + killTime;
+    }
+
     public override void run(float intensity)
     {
         if (fadingIn && Time.time < t)
         {
-            vignette.intensity = Mathf.Lerp(0, max * intensity + 0.15f, Time.time / t);
+            vignette.intensity = Mathf.Lerp(0, 0.15f, Time.time / t);
         }
         else if (fadingIn)
         {
@@ -38,15 +45,14 @@ public class TunnelVision : Effect {
             vignette.intensity = (-max * intensity) * Mathf.Cos(toRad(Time.time - time) / loopTime) + (max * intensity) + 0.15f;
             previous = vignette.intensity;
         }
-        else if (turningOff && previous > 0)
+        else if (turningOff && Time.time < t)
         {
-            t += (1 / killTime) * Time.deltaTime;
-            vignette.intensity = Mathf.Lerp(previous, 0, t);
+            //vignette.intensity = Mathf.Lerp(previous, 0, Time.time / t);
+            vignette.intensity = previous * (1 - (Time.time / t));
         }
         else if (turningOff)
         {
             turningOff = false;
-            t = 0;
         }
     }
 }
