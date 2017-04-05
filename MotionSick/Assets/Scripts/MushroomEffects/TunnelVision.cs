@@ -6,7 +6,7 @@ using UnityEngine;
 public class TunnelVision : Effect {
     VignetteAndChromaticAberration vignette;
 
-    float max = 0.5f;
+    float max = 0.15f;
     float t = 0;
     float previous;
 
@@ -14,9 +14,9 @@ public class TunnelVision : Effect {
 
     public override void turnOn()
     {
-        time = Time.time;
         vignette = Cam.GetComponent<VignetteAndChromaticAberration>();
         killTime = 10f;
+        loopTime = 20f;
         fadingIn = true;
     }
 
@@ -24,7 +24,7 @@ public class TunnelVision : Effect {
     {
         if (On)
         {
-            vignette.intensity = (-max * intensity) * Mathf.Cos(toRad(Time.time - time) / 5) + max;
+            vignette.intensity = (max * intensity) * Mathf.Sin(toRad(Time.time - time) / loopTime) + (max * intensity) + 0.15f;
             previous = vignette.intensity;
         }
         else if (turningOff && previous > 0)
@@ -37,17 +37,17 @@ public class TunnelVision : Effect {
             turningOff = false;
             t = 0;
         }
-
-        if (fadingIn && t < 1)
+        else if (fadingIn && t < 1)
         {
-            t += (0.5f / killTime) * Time.deltaTime;
-            vignette.intensity = Mathf.Lerp(0, 0.1f, t);
+            t += (1f / 2f) * Time.deltaTime;
+            vignette.intensity = Mathf.Lerp(0, max * intensity + 0.15f, t);
         } 
         else if (fadingIn)
         {
             t = 0;
             fadingIn = false;
             On = true;
+            time = Time.time;
         }
     }
 }

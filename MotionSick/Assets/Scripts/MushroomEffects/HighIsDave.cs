@@ -15,8 +15,8 @@ public class HighIsDave : MonoBehaviour {
     {
         Effects = new List<Effect>();
         Effects.Add(new FOVWarp());
-        //Effects.Add(new ColorSplitting());
-        //Effects.Add(new TunnelVision());
+        Effects.Add(new ColorSplitting());
+        Effects.Add(new TunnelVision());
 
         Debug.Log(Effects);
 
