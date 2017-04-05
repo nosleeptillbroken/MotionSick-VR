@@ -15,13 +15,14 @@ public class ColorSplitting : Effect {
     {
         chrome = Cam.GetComponent<VignetteAndChromaticAberration>();
         killTime = 5f;
+        loopTime = 6f;
     }
 
     public override void run(float intensity)
     {
         if (On)
         {
-            chrome.chromaticAberration = max * intensity * Mathf.Sin((Time.time - time)/3);
+            chrome.chromaticAberration = max * intensity * Mathf.Sin(toRad(Time.time - time)/loopTime);
             previousChromAb = chrome.chromaticAberration;
         } 
         else if (turningOff && previousChromAb > 0)

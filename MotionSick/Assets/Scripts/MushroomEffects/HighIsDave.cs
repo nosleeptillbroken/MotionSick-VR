@@ -15,16 +15,15 @@ public class HighIsDave : MonoBehaviour {
     {
         Effects = new List<Effect>();
         Effects.Add(new FOVWarp());
-        Effects.Add(new ColorSplitting());
+        //Effects.Add(new ColorSplitting());
+        //Effects.Add(new TunnelVision());
 
         Debug.Log(Effects);
 
-        foreach(Effect effect in Effects)
+        foreach (Effect effect in Effects)
         {
             effect.Cam = camObject;
-            effect.init();
-            effect.On = true;
-            //Debug.Log(effect.On);
+            effect.turnOn();
         }
 
         //StartCoroutine(randomOff());

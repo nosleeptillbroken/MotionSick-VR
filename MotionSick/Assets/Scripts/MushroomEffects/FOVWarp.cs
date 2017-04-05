@@ -32,7 +32,7 @@ public class FOVWarp : Effect {
     {
         if (On)
         {
-            cam.fieldOfView = originalFOV + max * intensity * Mathf.Sin(Time.time - time);
+            cam.fieldOfView = originalFOV + max * intensity * Mathf.Sin(toRad(Time.time - time) / loopTime);
             lastIntensity = intensity;
         }
         else if (turningOff && t < 1)

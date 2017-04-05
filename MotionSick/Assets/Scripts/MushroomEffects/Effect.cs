@@ -8,7 +8,9 @@ public class Effect {
 
     public bool On = false;
 
+
     protected float time;
+    protected float loopTime = 10f;
     protected float lastIntensity;
     protected float killTime = 3f;
     protected bool turningOff = false;
@@ -37,6 +39,7 @@ public class Effect {
 
     public float toRad(float degrees)
     {
-        return degrees * (Mathf.PI / 180);
+        //return degrees * (Mathf.PI / 180);
+        return degrees * 2 * Mathf.PI;
     }
 }
