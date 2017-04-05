@@ -6,30 +6,28 @@ using UnityEngine;
 public class FishBubble : Effect {
     Fisheye fisheye;
 
-    float max = 0.15f;
+    float max = 0.3f;
     float t = 0;
     float previous;
 
-    bool fadingIn;
-
-    public override void turnOn()
+    public override void init()
     {
         fisheye = Cam.GetComponent<Fisheye>();
         killTime = 5f;
-        fadingIn = true;
     }
 
     public override void run(float intensity)
     {
         if (On)
         {
-          //  fisheye.intensity = (max * intensity) * Mathf.Sin(toRad(Time.time - time) / loopTime) + (max * intensity) + 0.15f;
-            //previous = fisheye.intensity;
+            fisheye.strengthX = (-max * intensity) * Mathf.Cos(toRad(Time.time - time) / loopTime) + (max * intensity);
+            fisheye.strengthY = (-max * intensity) * Mathf.Cos(toRad(Time.time - time) / loopTime) + (max * intensity);
         }
         else if (turningOff && previous > 0)
         {
             t += (1 / killTime) * Time.deltaTime;
-            //fisheye.intensity = Mathf.Lerp(previous, 0, t);
+            fisheye.strengthX = Mathf.Lerp(previous, 0, t);
+            fisheye.strengthY = Mathf.Lerp(previous, 0, t);
         }
         else if (turningOff)
         {

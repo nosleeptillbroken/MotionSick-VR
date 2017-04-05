@@ -17,8 +17,6 @@ public class FOVWarp : Effect {
         time = Time.time;
         cam = Cam.GetComponent<Camera>();
         originalFOV = cam.fieldOfView;
-
-        Debug.Log(originalFOV);
     }
 
     public override void turnOff()

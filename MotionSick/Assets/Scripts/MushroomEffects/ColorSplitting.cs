@@ -9,7 +9,7 @@ public class ColorSplitting : Effect {
 
     float max = 50;
     float t = 0;
-    float previousChromAb;
+    float previous;
 
     public override void init()
     {
@@ -18,22 +18,28 @@ public class ColorSplitting : Effect {
         loopTime = 6f;
     }
 
+    public override void turnOff()
+    {
+        On = false;
+        turningOff = true;
+        t = Time.time + killTime;
+    }
+
     public override void run(float intensity)
     {
         if (On)
         {
             chrome.chromaticAberration = max * intensity * Mathf.Sin(toRad(Time.time - time)/loopTime);
-            previousChromAb = chrome.chromaticAberration;
+            previous = chrome.chromaticAberration;
         } 
-        else if (turningOff && previousChromAb > 0)
+        else if (turningOff && (Time.time < t))
         {
-            t += (1 / killTime) * Time.deltaTime;
-            chrome.chromaticAberration = Mathf.Lerp(previousChromAb, 0, t);
+            chrome.chromaticAberration = Mathf.Lerp(previous, 0, Time.time / t);
         }
         else if (turningOff)
         {
             turningOff = false;
-            t = 0;
+            chrome.chromaticAberration = 0;
         }
     }
 }

@@ -18,11 +18,22 @@ public class TunnelVision : Effect {
         killTime = 10f;
         loopTime = 20f;
         fadingIn = true;
+        On = true;
+        t = Time.time + 2;
     }
 
     public override void run(float intensity)
     {
-        if (On)
+        if (fadingIn && Time.time < t)
+        {
+            vignette.intensity = Mathf.Lerp(0, max * intensity + 0.15f, Time.time / t);
+        }
+        else if (fadingIn)
+        {
+            fadingIn = false;
+            time = Time.time;
+        }
+        else if (On)
         {
             vignette.intensity = (max * intensity) * Mathf.Sin(toRad(Time.time - time) / loopTime) + (max * intensity) + 0.15f;
             previous = vignette.intensity;
@@ -36,18 +47,6 @@ public class TunnelVision : Effect {
         {
             turningOff = false;
             t = 0;
-        }
-        else if (fadingIn && t < 1)
-        {
-            t += (1f / 2f) * Time.deltaTime;
-            vignette.intensity = Mathf.Lerp(0, max * intensity + 0.15f, t);
-        } 
-        else if (fadingIn)
-        {
-            t = 0;
-            fadingIn = false;
-            On = true;
-            time = Time.time;
         }
     }
 }
