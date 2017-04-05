@@ -24,10 +24,10 @@ public class HighIsDave : MonoBehaviour {
             effect.Cam = camObject;
             effect.init();
             effect.On = true;
-            Debug.Log(effect.On);
+            //Debug.Log(effect.On);
         }
 
-        StartCoroutine(randomOff());
+        //StartCoroutine(randomOff());
     }
 	
 	// Update is called once per frame
@@ -38,9 +38,9 @@ public class HighIsDave : MonoBehaviour {
         }
 	}
 
-    IEnumerator randomOff()
-    {
-        yield return new WaitForSeconds(5);
-        Effects[0].turnOff();
-    }
+    //IEnumerator randomOff()
+    //{
+    //    yield return new WaitForSeconds(5);
+    //    Effects[0].turnOff();
+    //}
 }

@@ -7,13 +7,32 @@ public class ColorSplitting : Effect {
 
     VignetteAndChromaticAberration chrome;
 
+    float max = 50;
+    float t = 0;
+    float previousChromAb;
+
     public override void init()
     {
-        VignetteAndChromaticAberration temp = Cam.GetComponent<VignetteAndChromaticAberration>();
+        chrome = Cam.GetComponent<VignetteAndChromaticAberration>();
+        killTime = 5f;
+    }
 
-        if (temp == null)
+    public override void run(float intensity)
+    {
+        if (On)
         {
-            Cam.AddComponent<VignetteAndChromaticAberration>();
+            chrome.chromaticAberration = max * intensity * Mathf.Sin((Time.time - time)/3);
+            previousChromAb = chrome.chromaticAberration;
+        } 
+        else if (turningOff && previousChromAb > 0)
+        {
+            t += (1 / killTime) * Time.deltaTime;
+            chrome.chromaticAberration = Mathf.Lerp(previousChromAb, 0, t);
+        }
+        else if (turningOff)
+        {
+            turningOff = false;
+            t = 0;
         }
     }
 }

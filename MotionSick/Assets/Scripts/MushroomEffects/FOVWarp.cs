@@ -6,7 +6,7 @@ public class FOVWarp : Effect {
 
     Camera cam;
 
-    float max = 15;
+    float max = 10;
     float originalFOV;
 
     float endingFOV;
