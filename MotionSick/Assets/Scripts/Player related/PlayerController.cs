@@ -4,21 +4,31 @@ using UnityEngine;
 using Rewired;
 using Rewired.UI.ControlMapper;
 
+
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(CapsuleCollider))]
+[RequireComponent(typeof(PlayerDeath))]
+[RequireComponent(typeof(PlayerAttributes))]
+
+
 public class PlayerController : MonoBehaviour
 {
+    
+
     //movement variables
-    [SerializeField] int moveSpeed;
+    [SerializeField] float moveSpeed;
     private Vector2 moveVector;
+    private Vector3 FBVector; //forward and back vector
 
     //camera variables
     private Camera playerCam;
-    private CharacterController CharController;
+    private Rigidbody CharRB;
     private float cameraPan;
     private float cameraTilt;
     private float joystickCameraPan;
     private float joystickCameraTilt;
-    [SerializeField] int lookSensitivity;
-    [SerializeField] int joystickLookSensitivity;
+    [SerializeField] float lookSensitivity;
+    [SerializeField] float joystickLookSensitivity;
     private float minY = -45f;
     private float maxY = 35f;
     float camX;
@@ -30,11 +40,101 @@ public class PlayerController : MonoBehaviour
     private Player rewiredPlayer;
     private int playerId = 0;
 
+    //interactable variables
+    private GameObject interactableObject;
+
+    //default values
+    [SerializeField] private bool useDefaultValues = true;
+    private float DefaultLookSensitivity = 15;
+    private float DefaultJoystickLookSensitivity = 125;
+    private float DefaultMoveSpeed = 10;
+
     void Awake()
     {
-        rewiredPlayer = ReInput.players.GetPlayer(playerId);
-        playerCam = this.gameObject.GetComponentInChildren<Camera>();
-        CharController = this.GetComponent<CharacterController>();
+        if (GameObject.Find("Rewired Input Manager") == null)
+        {
+            Debug.Log(
+                "Could not find Input manager, please make sure it is present and active within the scene! Quitting game...");
+            Quit();
+        }
+        else
+            rewiredPlayer = ReInput.players.GetPlayer(playerId);
+
+        if (this.GetComponent<PlayerAttributes>().GetHealth() == 0) //may change in the future, adding functionality for now.
+        {
+            Debug.Log("Player Health is 0! Adjusting to 2...");
+            this.GetComponent<PlayerAttributes>().SetHealth(2);
+        }
+
+        if (this.GetComponent<Rigidbody>() == null) //redundant now that require component is in place
+        {
+            Debug.Log("No [active] RigidBody found. Adding one...");
+            this.gameObject.AddComponent<Rigidbody>();
+            CharRB = this.GetComponent<Rigidbody>();
+            CharRB.mass = 5;
+            CharRB.constraints = RigidbodyConstraints.FreezeRotation;
+        }
+        else
+        {
+            CharRB = this.GetComponent<Rigidbody>();
+            CharRB.mass = 5;
+            CharRB.constraints = RigidbodyConstraints.FreezeRotation;
+        }
+
+        if (this.gameObject.GetComponent<CapsuleCollider>().height != 1.8f)
+        {
+            Debug.Log("Collider height not set to 2! Adjusting now...");
+            this.gameObject.GetComponent<CapsuleCollider>().height = 1.8f;
+        }
+
+        if (this.gameObject.GetComponent<CapsuleCollider>().radius != 0.3)
+        {
+            Debug.Log("Collider radius not set to 0.3! Adjusting now...");
+            this.gameObject.GetComponent<CapsuleCollider>().radius = 0.3f;
+        }
+            
+        
+
+        if (this.GetComponentInChildren<Camera>() == null)
+        {
+            Debug.Log("No [active] Camera found. Adding one...");
+            GameObject obj = new GameObject();
+            obj.transform.parent = this.gameObject.transform;
+            obj.AddComponent<Camera>();
+            obj.transform.localPosition = new Vector3(0f, 1f, 0f);
+            obj.tag = "MainCamera";
+            obj.name = "NewMainCamera";
+            playerCam = obj.GetComponent<Camera>();
+        }
+        else
+            playerCam = this.gameObject.GetComponentInChildren<Camera>();
+
+        if (this.gameObject.tag != "Player")
+        {
+            Debug.Log("Player's tag set incorrectly! Adjusting now...");
+            this.gameObject.tag = "Player";
+        }
+
+        if (useDefaultValues && moveSpeed == 0)
+        {
+            Debug.Log("Using default move speed of: " + DefaultMoveSpeed + "...");
+            moveSpeed = DefaultMoveSpeed;
+        }
+
+        if (useDefaultValues && lookSensitivity == 0)
+        {
+            Debug.Log("Using default look sensitivity of: " + DefaultLookSensitivity + "...");
+            lookSensitivity = DefaultLookSensitivity;
+        }
+
+        if (useDefaultValues && joystickLookSensitivity == 0)
+        {
+            Debug.Log("Using default joystick look sensitivity of: " + DefaultJoystickLookSensitivity + "...");
+            joystickLookSensitivity = DefaultJoystickLookSensitivity;
+        }
+
+        Cursor.lockState = CursorLockMode.Locked; //so you don't interact with random things. Press escape to show mouse cursor again
+        
     }
 
     void GetInputs()
@@ -54,19 +154,14 @@ public class PlayerController : MonoBehaviour
 
     void ProcessInputs()
     {
-        if (moveVector.y != 0) //moving forward or back
-        {
-            CharController.SimpleMove(gameObject.transform.forward * moveSpeed * moveVector.y);
-        }
+        FBVector = gameObject.transform.forward*moveSpeed*moveVector.y;
 
-        if (rewiredPlayer.GetAxis("Move Horizontal") != 0) //strafing left or right
-        {
-            CharController.SimpleMove(gameObject.transform.right*(moveSpeed/2)*moveVector.x);
-        }
+        this.GetComponent<Rigidbody>().velocity = (gameObject.transform.right * (moveSpeed / 2) * moveVector.x) + FBVector; //could be a problem in the future if we need to jump (velocity on the y axis would alway get set to 0
 
         if (interacting) //player presses interact
         {
-            Debug.Log("Interacted");
+            //Debug.Log("Interacted");
+            InteractInput();
         }
 
         else if (cameraPan > 1 || cameraPan < 1) //looking up or down
@@ -96,6 +191,16 @@ public class PlayerController : MonoBehaviour
             playerCam.transform.localEulerAngles = new Vector3(-camX, 0f, 0f);
         }
 
+        
+
+    }
+
+    void InteractInput()
+    {
+        if (interactableObject != null)
+            interactableObject.SendMessage("Interact");
+        else
+            Debug.Log("There is nothing to interact with at the moment.");
     }
 
 	// Update is called once per frame
@@ -107,9 +212,14 @@ public class PlayerController : MonoBehaviour
 
     #region Getters
 
-    public int GetLookSensitivity()
+    public float GetLookSensitivity()
     {
         return lookSensitivity;
+    }
+
+    public GameObject GetInteractable()
+    {
+        return interactableObject;
     }
     #endregion
 
@@ -119,5 +229,19 @@ public class PlayerController : MonoBehaviour
     {
         lookSensitivity = sensitivity;
     }
+
+    public void SetInteractableObject(GameObject newObj)
+    {
+        interactableObject = newObj;
+    }
     #endregion
+
+    public static void Quit()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+         Application.Quit();
+#endif
+    }
 }
