@@ -20,19 +20,28 @@ public class PlayerAttributes : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Decrement Health Variable
-        playerHealth--;
-        // Just for testing
-        Debug.Log("boop");
-        // If the Player is Dead
-        if (playerHealth <= 0)
+        // If the collision is with an enemy
+        if (other.tag == "enemy")
         {
-            // If the collision is with an enemy
-            if (other.tag == "enemy")
-            {
+            // Decrement Health Variable
+            playerHealth--;
+
+            // Just for testing
+            Debug.Log("boop");
+
+            // If the Player is Dead
+            if (playerHealth <= 0)
+            { 
                 // Begin the Process of killing the player
                 GetComponent<PlayerDeath>().OnDeath();
             }
+        }
+
+        // If the Collision is with the end Goal
+        if(other.tag == "winCondition")
+        {
+            // Begin the Process of victory
+            GetComponent<PlayerVictory>().OnWin();
         }
     }
 
