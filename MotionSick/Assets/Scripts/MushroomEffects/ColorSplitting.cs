@@ -7,7 +7,7 @@ public class ColorSplitting : Effect {
 
     VignetteAndChromaticAberration chrome;
 
-    float max = 50;
+    float max = 40;
     float t = 0;
     float previous;
 

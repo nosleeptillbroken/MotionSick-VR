@@ -28,8 +28,8 @@ public class HighIsDave : MonoBehaviour {
         peakTime = startTime + timeUntilPeak;
 
         Effects = new List<Effect>();
-        Effects.Add(new FOVWarp());
         Effects.Add(new ColorSplitting());
+        Effects.Add(new FOVWarp());
         Effects.Add(new TunnelVision());
         Effects.Add(new FishBubble());
 
@@ -38,6 +38,8 @@ public class HighIsDave : MonoBehaviour {
             effect.Cam = camObject;
         }
 
+        Effects[0].turnOn();
+
         StartCoroutine(TurnOnRandomEffects());
     }
 	
@@ -45,7 +47,7 @@ public class HighIsDave : MonoBehaviour {
 	void Update () {
         if (Time.time < peakTime)
         {
-            intensity = Time.time / peakTime;
+            intensity = (Time.time - startTime) / peakTime;
         }
 
 		foreach(Effect effect in Effects)
@@ -57,13 +59,17 @@ public class HighIsDave : MonoBehaviour {
     IEnumerator TurnOnRandomEffects()
     {
         yield return new WaitForSeconds(startDelay);
-        while (true)
+
+        int totalEffectsOn = 1;
+
+        startTime = Time.time;
+        peakTime = startTime + timeUntilPeak;
+
+        while (totalEffectsOn < Effects.Count)
         {
-            int i = Random.Range(0, Effects.Count - 1);
-            if (Effects[i].On)
+            int i = Random.Range(1, Effects.Count - 1);
+            if (!Effects[i].On)
             {
-                Debug.Log("Effect " + i + " is already on, so we're turning it off.");
-                Effects[i].turnOff();
                 int j = i;
                 while (Effects[++i % (Effects.Count)].On)
                 { Debug.Log("Effect " + i + " is also on.."); }
@@ -73,16 +79,14 @@ public class HighIsDave : MonoBehaviour {
                 {
                     Debug.Log("So we're turning on effect " + i + " instead.");
                     Effects[i].turnOn();
-                }
-                else
-                {
-                    Debug.Log("So we're just going to leave it off.");
+                    totalEffectsOn++; 
                 }
             }
             else
             {
                 Debug.Log("Turning on effect " + i);
                 Effects[i].turnOn();
+                totalEffectsOn++;
             }
             yield return new WaitForSeconds(newEffectTime);
         }
