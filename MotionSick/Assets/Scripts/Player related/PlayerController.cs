@@ -154,9 +154,9 @@ public class PlayerController : MonoBehaviour
 
     void ProcessInputs()
     {
-        FBVector = gameObject.transform.forward*moveSpeed*moveVector.y;
-
-        this.GetComponent<Rigidbody>().velocity = (gameObject.transform.right * (moveSpeed / 2) * moveVector.x) + FBVector; //could be a problem in the future if we need to jump (velocity on the y axis would alway get set to 0
+        FBVector = transform.forward*moveSpeed*moveVector.y;
+        Rigidbody rb = GetComponent<Rigidbody>();
+        rb.velocity = (transform.right * (moveSpeed / 2) * moveVector.x) + FBVector + new Vector3(0, rb.velocity.y, 0); //could be a problem in the future if we need to jump (velocity on the y axis would alway get set to 0
 
         if (interacting) //player presses interact
         {
