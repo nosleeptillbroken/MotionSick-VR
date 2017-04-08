@@ -22,6 +22,11 @@ public class HighIsDave : MonoBehaviour {
     [SerializeField]
     private GameObject camObject;
 
+    void Awake()
+    {
+        GetComponent<PlayerController>().enabled = true;
+    }
+
     void Start()
     {
         startTime = Time.time;

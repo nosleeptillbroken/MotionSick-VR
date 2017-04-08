@@ -25,7 +25,7 @@ public class MenuClickEvents : MonoBehaviour
     public void Play()
     {
         // Loads the main Gameplay Scene
-        SceneManager.LoadScene("Rob");
+        SceneManager.LoadScene(1);
     }
 
     //
@@ -39,7 +39,7 @@ public class MenuClickEvents : MonoBehaviour
     public void Replay()
     {
         // This will be the name of whichever scene we are playing in
-        SceneManager.LoadScene("Rob");
+        SceneManager.LoadScene(1);
         // Debug.Log("Reloaded");
     }
 
@@ -48,7 +48,7 @@ public class MenuClickEvents : MonoBehaviour
     public void ReturnToMenu()
     {
         // This will be the name of the scene where we keep the menu
-        SceneManager.LoadScene("Rob_MainMenu");
+        SceneManager.LoadScene(0);
         // Debug.Log("Main Menu Loaded");
     }
 

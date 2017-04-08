@@ -26,5 +26,6 @@ public class PlayerVictory : MonoBehaviour {
         // Create the Game Over menu
         Instantiate(winMenu);
         Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
     }
 }
