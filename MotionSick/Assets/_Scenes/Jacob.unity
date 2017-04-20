@@ -636,11 +636,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4104807614717496, guid: 69aa32f4c167e774cb717c8b4db09f59, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -0.545
+      value: -0.523
       objectReference: {fileID: 0}
     - target: {fileID: 4104807614717496, guid: 69aa32f4c167e774cb717c8b4db09f59, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 4.158
+      value: 4.178
       objectReference: {fileID: 0}
     - target: {fileID: 4104807614717496, guid: 69aa32f4c167e774cb717c8b4db09f59, type: 2}
       propertyPath: m_LocalRotation.x
@@ -671,6 +671,16 @@ Prefab:
       propertyPath: tvAnim
       value: 
       objectReference: {fileID: 2092872325}
+    - target: {fileID: 54985674550082198, guid: 69aa32f4c167e774cb717c8b4db09f59,
+        type: 2}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 23877767896729904, guid: 69aa32f4c167e774cb717c8b4db09f59,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3375d8e76ce98534a81e634fe28cea71, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 69aa32f4c167e774cb717c8b4db09f59, type: 2}
   m_IsPrefabParent: 0

@@ -9,6 +9,7 @@ public class Remote : MonoBehaviour
     private bool tripped = false;
     private PlayerController playerController;
     private PlayerAttributes playerAttributes;
+    private Material skin;
 
     private bool overlapping = false;
 
@@ -16,6 +17,7 @@ public class Remote : MonoBehaviour
     {
         playerAttributes = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttributes>();
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        skin = gameObject.GetComponent<Renderer>().material;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -31,6 +33,7 @@ public class Remote : MonoBehaviour
             tripped = true;
             toggleTelevision(true);
             playerAttributes.SetHealth(playerAttributes.GetHealth() - 1);
+            //skin.SetColor("_EmmissionColor", Color.red);
         }
     }
 
@@ -58,6 +61,9 @@ public class Remote : MonoBehaviour
     public void Interact()
     {
         if (overlapping)
+        { 
             toggleTelevision(false);
+            //skin.SetColor("_EmmissionColor", Color.black);
+        }
     }
 }
