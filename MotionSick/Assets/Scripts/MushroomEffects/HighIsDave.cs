@@ -72,12 +72,14 @@ public class HighIsDave : MonoBehaviour {
 
         while (totalEffectsOn < Effects.Count)
         {
-            int i = Random.Range(1, Effects.Count - 1);
+            int i = Random.Range(0, Effects.Count - 1);
             if (!Effects[i].On)
             {
                 int j = i;
                 while (Effects[++i % (Effects.Count)].On)
-                { Debug.Log("Effect " + i + " is also on.."); }
+                {
+                    Debug.Log("Effect " + i + " is also on..");
+                }
 
                 i %= (Effects.Count);
                 if (i != j)
