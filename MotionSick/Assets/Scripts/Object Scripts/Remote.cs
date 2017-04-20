@@ -7,21 +7,30 @@ public class Remote : MonoBehaviour
     public Animator tvAnim;
     public AudioSource tvSound;
     private bool tripped = false;
+    private PlayerController playerController;
+    private PlayerAttributes playerAttributes;
 
     private bool overlapping = false;
 
-    void OnTriggerEnter(Collider other)
+    private void Start()
+    {
+        playerAttributes = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttributes>();
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+    }
+
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         { 
             overlapping = true;
-            other.gameObject.GetComponent<PlayerController>().SetInteractableObject(gameObject);
+            playerController.SetInteractableObject(gameObject);
         }
 
         if (other.gameObject.CompareTag("Player") && tripped == false)
         {
             tripped = true;
             toggleTelevision(true);
+            playerAttributes.SetHealth(playerAttributes.GetHealth() - 1);
         }
     }
 
@@ -30,7 +39,7 @@ public class Remote : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         { 
             overlapping = false;
-            other.gameObject.GetComponent<PlayerController>().SetInteractableObject(null);
+            playerController.SetInteractableObject(null);
         }
     }
 
