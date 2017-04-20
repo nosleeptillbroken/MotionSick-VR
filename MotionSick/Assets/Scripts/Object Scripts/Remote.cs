@@ -13,20 +13,25 @@ public class Remote : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
+        { 
             overlapping = true;
+            other.gameObject.GetComponent<PlayerController>().SetInteractableObject(gameObject);
+        }
 
         if (other.gameObject.CompareTag("Player") && tripped == false)
         {
             tripped = true;
             toggleTelevision(true);
-            other.gameObject.GetComponent<PlayerController>().SetInteractableObject(gameObject);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
+        { 
             overlapping = false;
+            other.gameObject.GetComponent<PlayerController>().SetInteractableObject(null);
+        }
     }
 
     private void toggleTelevision(bool toggle)
