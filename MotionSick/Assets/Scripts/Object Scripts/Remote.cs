@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Remote : MonoBehaviour
 {
-    public GameObject tvImage;
+    public Animator tvAnim;
     public AudioSource tvSound;
     private bool tripped = false;
 
@@ -12,15 +12,15 @@ public class Remote : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player") && tripped == false)
         {
-            toggleTelevision(true);
             tripped = true;
+            toggleTelevision(true);
         }
     }
 
     private void toggleTelevision(bool toggle)
     {
         Debug.Log("ToggleTV");
-        tvImage.SetActive(toggle);
+        tvAnim.SetBool("On", tripped);
         /*
         if (tvSound.isPlaying)
             tvSound.Stop();
@@ -29,7 +29,7 @@ public class Remote : MonoBehaviour
             */
     }
 
-    public void interact()
+    public void Interact()
     {
         toggleTelevision(false);
     }
