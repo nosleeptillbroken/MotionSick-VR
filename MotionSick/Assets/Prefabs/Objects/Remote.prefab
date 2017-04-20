@@ -57,7 +57,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: b0d83998dd9fc2a42916d8cf4b09a1fe, type: 2}
+  - {fileID: 2100000, guid: 3375d8e76ce98534a81e634fe28cea71, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -120,4 +120,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ce7d50c6a8a62644a950c326f592fbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  television: {fileID: 0}
+  tvAnim: {fileID: 0}
+  tvSound: {fileID: 0}
