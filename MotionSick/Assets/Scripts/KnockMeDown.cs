@@ -15,6 +15,7 @@ public class KnockMeDown : MonoBehaviour {
 
     void OnCollisionEnter(Collision other)
     {
-        rb.isKinematic = false;
+        if (other.gameObject.CompareTag("Player"))
+            rb.isKinematic = false;
     }
 }
