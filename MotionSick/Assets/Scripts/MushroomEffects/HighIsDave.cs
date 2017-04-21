@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class HighIsDave : MonoBehaviour {
 
+    [SerializeField]
     private List<Effect> Effects;
 
     public float intensity = 0f;
