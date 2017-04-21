@@ -81,6 +81,7 @@ GameObject:
   - component: {fileID: 4564446919914870}
   - component: {fileID: 82097612528939928}
   - component: {fileID: 114061227708037738}
+  - component: {fileID: 114701965080718450}
   m_Layer: 0
   m_Name: KnockDownBookShelf
   m_TagString: enemy
@@ -292,8 +293,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1269874673923534}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 6.1800003, y: -1, z: 1.3299999}
+  m_LocalRotation: {x: -0, y: -0.999501, z: -0, w: 0.03158743}
+  m_LocalPosition: {x: 0.2558608, y: -1, z: -4.66}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4896247207773048}
@@ -307,7 +308,7 @@ Transform:
   - {fileID: 4043724772981492}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -176.38, z: 0}
 --- !u!4 &4793315651604238
 Transform:
   m_ObjectHideFlags: 1
@@ -1109,6 +1110,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5af47f18c3a0ed7448535cb4ea0976d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114701965080718450
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1269874673923534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba2c143ba923ee943a5b6c3aa813a923, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114812476133292018

@@ -54,6 +54,7 @@ public class Remote : MonoBehaviour
         if (tvSound.isPlaying)
             tvSound.Stop();
         else
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttributes>().SendMessage("OnPlayerHurt", null, SendMessageOptions.DontRequireReceiver);
             tvSound.Play();
     }
 
