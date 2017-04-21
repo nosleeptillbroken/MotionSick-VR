@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 114894015272485774}
   m_Layer: 0
   m_Name: Remote
-  m_TagString: Untagged
+  m_TagString: Pickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38,13 +38,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1539506820790176}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 3.285, y: -0.979, z: 2.034}
-  m_LocalScale: {x: 0.1, y: 0.01, z: 0.2}
+  m_LocalRotation: {x: -0, y: -0.31677172, z: -0, w: 0.9485018}
+  m_LocalPosition: {x: 2.332, y: -0.44500002, z: -0.569}
+  m_LocalScale: {x: 0.10000006, y: 0.01, z: 0.20000012}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 323.064, z: 0}
 --- !u!23 &23877767896729904
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -120,7 +120,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3, y: 30, z: 3}
+  m_Size: {x: 5, y: 30, z: 3}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114894015272485774
 MonoBehaviour:

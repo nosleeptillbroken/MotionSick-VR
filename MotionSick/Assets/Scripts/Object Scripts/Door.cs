@@ -13,6 +13,7 @@ public class Door : MonoBehaviour
     private bool open = false;
 
     public AudioClip openClip;
+    public AudioClip lockedClip;
     public AudioClip closeClip;
 
     // Use this for initialization
@@ -58,10 +59,13 @@ public class Door : MonoBehaviour
             open = !open;
         }
         else if (locked)
+        {
+            if (aud) aud.clip = lockedClip; aud.Play();
             doorAnim.Play("DoorLocked");
+        }
         else
         {
-			if (aud) aud.clip = openClip; aud.Play();
+            if (aud) aud.clip = openClip; aud.Play();
             doorAnim.Play("DoorOpen");
             open = !open;
         }
