@@ -1208,7 +1208,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4660010774865614, guid: 48bfe600a6006244a81d982f4091c2f8, type: 2}
       propertyPath: m_RootOrder
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 48bfe600a6006244a81d982f4091c2f8, type: 2}
@@ -2580,7 +2580,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4564446919914870, guid: 74b641f30be435c4fa349a79c371e97f, type: 2}
       propertyPath: m_RootOrder
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 4564446919914870, guid: 74b641f30be435c4fa349a79c371e97f, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -3645,7 +3645,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4307755953154898, guid: 8c9e2a6946ceb9442a06874bb42c1bf6, type: 2}
       propertyPath: m_RootOrder
-      value: 13
+      value: 14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8c9e2a6946ceb9442a06874bb42c1bf6, type: 2}
@@ -6931,7 +6931,7 @@ GameObject:
   - component: {fileID: 1905431922}
   - component: {fileID: 1905431921}
   m_Layer: 0
-  m_Name: temp player
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7064,7 +7064,7 @@ Transform:
   m_Children:
   - {fileID: 1781063420}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!54 &1905431918
 Rigidbody:
@@ -7292,6 +7292,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1980940021}
   - component: {fileID: 1980940022}
+  - component: {fileID: 1980940023}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -7362,6 +7363,86 @@ AudioSource:
     - serializedVersion: 2
       time: 0
       value: 0.75
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+--- !u!82 &1980940023
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1980940020}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: c7890f9693e1fe148875796fec6c4fa0, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0.9
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -7738,7 +7819,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4564446919914870, guid: 74b641f30be435c4fa349a79c371e97f, type: 2}
       propertyPath: m_RootOrder
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 4564446919914870, guid: 74b641f30be435c4fa349a79c371e97f, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
