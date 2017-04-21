@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
+    private bool locked = false;
+    public GameObject needs = null;
 
     private PlayerController playerController;
+    private PlayerAttributes playerAttributes;
     private Animation doorAnim;
     private bool open = false;
 
@@ -13,7 +16,11 @@ public class Door : MonoBehaviour
     void Start()
     {
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        playerAttributes = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttributes>();
         doorAnim = gameObject.GetComponent<Animation>();
+
+        if (needs == null)
+            locked = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -31,10 +38,16 @@ public class Door : MonoBehaviour
     {
         open = !open;
 
+        if (locked && needs != null &&
+            playerAttributes.hasItem == needs)
+            locked = false;
+
         if (open)
-            doorAnim.Play();
+            doorAnim.Play("DoorClose");
+        else if (locked)
+            doorAnim.Play("DoorLocked");
         else
-            doorAnim.Rewind();
+            doorAnim.Play("DoorOpen");
 
         //Maybe also make a noise.
     }
