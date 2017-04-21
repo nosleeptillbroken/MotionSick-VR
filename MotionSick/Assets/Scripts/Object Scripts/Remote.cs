@@ -50,12 +50,11 @@ public class Remote : MonoBehaviour
     {
         //Debug.Log("ToggleTV");
         tvAnim.SetBool("On", toggle);
-        /*
+
         if (tvSound.isPlaying)
             tvSound.Stop();
         else
             tvSound.Play();
-            */
     }
 
     public void Interact()

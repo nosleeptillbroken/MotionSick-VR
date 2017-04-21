@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PickMeUp : MonoBehaviour {
 
+    private Transform originalParent;
     private GameObject player;
     private PlayerController playerController;
     private PlayerAttributes playerAttributes;
@@ -12,6 +13,7 @@ public class PickMeUp : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        originalParent = transform.parent;
         player = GameObject.FindGameObjectWithTag("Player");
         playerController = player.GetComponent<PlayerController>();
         playerAttributes = player.GetComponent<PlayerAttributes>();
@@ -32,14 +34,32 @@ public class PickMeUp : MonoBehaviour {
 
     public void Interact()
     {
-        if (playerAttributes.hasItem != null)
+        if(playerAttributes.hasItem == gameObject)
         {
-            playerAttributes.hasItem.GetComponent<Rigidbody>().isKinematic = false;
-            playerAttributes.hasItem.transform.parent = null;
+            Drop();
         }
+        else if (playerAttributes.hasItem != null)
+        {
+            playerAttributes.hasItem.GetComponent<PickMeUp>().Drop();
+            PickUp();
+        }
+        else
+        {
+            PickUp();
+        }
+    }
 
+    public void PickUp()
+    {
         rb.isKinematic = true;
         transform.parent = player.transform;
         playerAttributes.hasItem = gameObject;
+    }
+
+    public void Drop()
+    {
+        rb.isKinematic = false;
+        transform.parent = originalParent;
+        playerAttributes.hasItem = null;
     }
 }
