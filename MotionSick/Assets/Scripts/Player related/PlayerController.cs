@@ -156,6 +156,9 @@ public class PlayerController : MonoBehaviour
     {
         FBVector = gameObject.transform.forward*moveSpeed*moveVector.y;
         Rigidbody rb = GetComponent<Rigidbody>();
+
+        moveSpeed =  Mathf.Lerp(DefaultMoveSpeed / 3, DefaultMoveSpeed, GetComponent<HighIsDave>().intensity);
+
         rb.velocity = (gameObject.transform.right * (moveSpeed / 2) * moveVector.x) + FBVector + new Vector3(0, rb.velocity.y, 0); //could be a problem in the future if we need to jump (velocity on the y axis would alway get set to 0
 
 

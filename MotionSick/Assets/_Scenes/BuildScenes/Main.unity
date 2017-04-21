@@ -6951,7 +6951,7 @@ MonoBehaviour:
   intensity: 0.1
   startDelay: 1
   newEffectTime: 30
-  timeUntilPeak: 30
+  timeUntilPeak: 120
   camObject: {fileID: 1781063414}
 --- !u!114 &1905431911
 MonoBehaviour:
@@ -6965,7 +6965,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65132a71ad903644e97bdf5de82df099, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: 3
+  playerHealth: 0
   hasItem: {fileID: 0}
 --- !u!114 &1905431912
 MonoBehaviour:

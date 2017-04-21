@@ -63,6 +63,7 @@ public class HighIsDave : MonoBehaviour {
         AudioSource[] auds = GetComponents<AudioSource>();
 
         GetComponent<AudioReverbZone>().room = (int)Mathf.Lerp(-6000, -1000, intensity);
+        auds[0].volume = Mathf.Lerp(0.01f, 0.5f, intensity);
         auds[0].panStereo = Mathf.Sin(Time.time - startTime) * intensity/2;
         auds[1].volume = Mathf.Lerp(-0.5f, 0.5f, intensity);
 	}
