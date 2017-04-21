@@ -7,6 +7,7 @@ public class PlayerAttributes : MonoBehaviour
 
     // How many hits you can take before dying
     private int playerHealth;
+    public GameObject hasItem;
 
     void Start()
     {

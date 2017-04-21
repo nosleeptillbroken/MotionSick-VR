@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
+    private bool locked = true;
+    public GameObject needs = null;
 
     private PlayerController playerController;
+    private PlayerAttributes playerAttributes;
     private Animation doorAnim;
     private bool open = false;
 
@@ -16,7 +19,11 @@ public class Door : MonoBehaviour
     void Start()
     {
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        playerAttributes = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttributes>();
         doorAnim = gameObject.GetComponent<Animation>();
+
+        if (needs == null)
+            locked = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -35,17 +42,28 @@ public class Door : MonoBehaviour
         AudioSource aud = GetComponent<AudioSource>();
         if(aud)aud.Stop();
 
-        open = !open;
+        if (locked && needs != null &&
+            playerAttributes.hasItem == needs)
+        { 
+            locked = false;
+            playerAttributes.hasItem.GetComponent<Rigidbody>().isKinematic = false;
+            playerAttributes.hasItem.transform.parent = null;
+            playerAttributes.hasItem = null;
+        }
 
         if (open)
         {
-            if (aud) aud.clip = openClip; aud.Play();
-            doorAnim.Play();
+            if (aud) aud.clip = closeClip; aud.Play();
+            doorAnim.Play("DoorClose");
+            open = !open;
         }
+        else if (locked)
+            doorAnim.Play("DoorLocked");
         else
         {
-            if (aud) aud.clip = closeClip; aud.Play();
-            doorAnim.Rewind();
+			if (aud) aud.clip = openClip; aud.Play();
+            doorAnim.Play("DoorOpen");
+            open = !open;
         }
 
         //Maybe also make a noise.
