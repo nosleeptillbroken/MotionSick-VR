@@ -522,4 +522,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   needs: {fileID: 0}
   openClip: {fileID: 8300000, guid: 2840293346a789142b921265bd415b03, type: 3}
+  lockedClip: {fileID: 8300000, guid: 5fda99fa227f2854ab7f956eefe84d22, type: 3}
   closeClip: {fileID: 8300000, guid: 33677874473a57d4e81b1c76ebc4d1ef, type: 3}
