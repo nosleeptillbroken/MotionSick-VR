@@ -9,6 +9,9 @@ public class Door : MonoBehaviour
     private Animation doorAnim;
     private bool open = false;
 
+    public AudioClip openClip;
+    public AudioClip closeClip;
+
     // Use this for initialization
     void Start()
     {
@@ -29,12 +32,21 @@ public class Door : MonoBehaviour
 
     private void Interact()
     {
+        AudioSource aud = GetComponent<AudioSource>();
+        if(aud)aud.Stop();
+
         open = !open;
 
         if (open)
+        {
+            if (aud) aud.clip = openClip; aud.Play();
             doorAnim.Play();
+        }
         else
+        {
+            if (aud) aud.clip = closeClip; aud.Play();
             doorAnim.Rewind();
+        }
 
         //Maybe also make a noise.
     }
