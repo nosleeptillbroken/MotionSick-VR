@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    private bool locked = false;
+    private bool locked = true;
     public GameObject needs = null;
 
     private PlayerController playerController;
@@ -36,18 +36,27 @@ public class Door : MonoBehaviour
 
     private void Interact()
     {
-        open = !open;
-
         if (locked && needs != null &&
             playerAttributes.hasItem == needs)
+        { 
             locked = false;
+            playerAttributes.hasItem.GetComponent<Rigidbody>().isKinematic = false;
+            playerAttributes.hasItem.transform.parent = null;
+            playerAttributes.hasItem = null;
+        }
 
         if (open)
+        {
             doorAnim.Play("DoorClose");
+            open = !open;
+        }
         else if (locked)
             doorAnim.Play("DoorLocked");
         else
+        {
             doorAnim.Play("DoorOpen");
+            open = !open;
+        }
 
         //Maybe also make a noise.
     }
