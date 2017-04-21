@@ -51,11 +51,15 @@ public class Remote : MonoBehaviour
         //Debug.Log("ToggleTV");
         tvAnim.SetBool("On", toggle);
 
-        if (tvSound.isPlaying)
+        if (toggle == false)
+        {
             tvSound.Stop();
+        }
         else
+        {
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttributes>().SendMessage("OnPlayerHurt", null, SendMessageOptions.DontRequireReceiver);
             tvSound.Play();
+        }
     }
 
     public void Interact()

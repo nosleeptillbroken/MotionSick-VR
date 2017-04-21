@@ -66,6 +66,13 @@ public class HighIsDave : MonoBehaviour {
         auds[0].volume = Mathf.Lerp(0.01f, 0.5f, intensity);
         auds[0].panStereo = Mathf.Sin(Time.time - startTime) * intensity/2;
         auds[1].volume = Mathf.Lerp(-0.5f, 0.5f, intensity);
+
+        UnityStandardAssets.ImageEffects.Twirl twirl = Camera.main.GetComponent<UnityStandardAssets.ImageEffects.Twirl>();
+        if(twirl)
+        {
+            float sinTime = Mathf.Sin(Time.time - startTime);
+            twirl.angle = (360 + Mathf.LerpUnclamped(0, 20, sinTime * Mathf.Clamp01(intensity-0.2f))) % 360;
+        }
 	}
 
     IEnumerator TurnOnRandomEffects()
