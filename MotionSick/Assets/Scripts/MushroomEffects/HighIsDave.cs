@@ -59,6 +59,9 @@ public class HighIsDave : MonoBehaviour {
         {
             effect.run(intensity);
         }
+
+        GetComponent<AudioReverbZone>().room = (int)Mathf.Lerp(-6000, -1000, intensity);
+        GetComponent<AudioSource>().panStereo = Mathf.Sin(Time.time - startTime) * intensity/2;
 	}
 
     IEnumerator TurnOnRandomEffects()

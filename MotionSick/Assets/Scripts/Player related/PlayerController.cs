@@ -158,6 +158,19 @@ public class PlayerController : MonoBehaviour
         Rigidbody rb = GetComponent<Rigidbody>();
         rb.velocity = (gameObject.transform.right * (moveSpeed / 2) * moveVector.x) + FBVector + new Vector3(0, rb.velocity.y, 0); //could be a problem in the future if we need to jump (velocity on the y axis would alway get set to 0
 
+
+        if (Mathf.Abs(moveVector.y) > 0.1f)
+        {
+            if (!GetComponent<AudioSource>().isPlaying)
+            {
+                GetComponent<AudioSource>().Play();
+            }
+        }
+        else
+        {
+            GetComponent<AudioSource>().Pause();
+        }
+
         if (interacting) //player presses interact
         {
             //Debug.Log("Interacted");
@@ -189,9 +202,7 @@ public class PlayerController : MonoBehaviour
             camX += joystickCameraTilt;
             camX = Mathf.Clamp(camX, minY, maxY);
             playerCam.transform.localEulerAngles = new Vector3(-camX, 0f, 0f);
-        }
-
-        
+        }       
 
     }
 
