@@ -41,5 +41,11 @@ public class PickMeUp : MonoBehaviour {
         rb.isKinematic = true;
         transform.parent = player.transform;
         playerAttributes.hasItem = gameObject;
+
+        Vector3 newPosition = transform.localPosition;
+        newPosition.x = 0;
+        newPosition.y = 0;
+
+        transform.localPosition = newPosition;
     }
 }
