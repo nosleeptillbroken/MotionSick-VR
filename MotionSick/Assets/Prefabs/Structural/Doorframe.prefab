@@ -500,12 +500,14 @@ Animation:
   m_GameObject: {fileID: 1103765251487262}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 3e2e4ebef854ba44f93dcbeaecad51bc, type: 2}
+  m_Animation: {fileID: 7400000, guid: 5587bbf057eac474f873df38933c64cb, type: 2}
   m_Animations:
   - {fileID: 7400000, guid: 3e2e4ebef854ba44f93dcbeaecad51bc, type: 2}
+  - {fileID: 7400000, guid: c11ec94ec7cf47349819ccf2ad707738, type: 2}
+  - {fileID: 7400000, guid: 5587bbf057eac474f873df38933c64cb, type: 2}
   m_WrapMode: 0
-  m_PlayAutomatically: 0
-  m_AnimatePhysics: 1
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
   m_CullingType: 0
 --- !u!114 &114841332159033066
 MonoBehaviour:
@@ -518,5 +520,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a6535570b4cc8946abe1797db5bebb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  needs: {fileID: 0}
   openClip: {fileID: 8300000, guid: 2840293346a789142b921265bd415b03, type: 3}
   closeClip: {fileID: 8300000, guid: 33677874473a57d4e81b1c76ebc4d1ef, type: 3}
