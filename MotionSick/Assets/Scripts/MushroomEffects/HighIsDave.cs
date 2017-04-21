@@ -71,7 +71,7 @@ public class HighIsDave : MonoBehaviour {
         if(twirl)
         {
             float sinTime = Mathf.Sin(Time.time - startTime);
-            twirl.angle = (360 + Mathf.LerpUnclamped(0, 20, sinTime * Mathf.Clamp01(intensity-0.2f))) % 360;
+            twirl.angle = (360 + Mathf.LerpUnclamped(0, 15, sinTime * Mathf.Clamp01(intensity-0.25f))) % 360;
         }
 	}
 
