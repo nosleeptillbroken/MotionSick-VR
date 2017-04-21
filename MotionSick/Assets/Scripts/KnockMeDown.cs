@@ -15,6 +15,8 @@ public class KnockMeDown : MonoBehaviour {
 
     void OnCollisionEnter(Collision other)
     {
+        if (other.gameObject.CompareTag("Pickup"))
+            return;
         transform.parent.SendMessage("OnCollisionEnter", other, SendMessageOptions.DontRequireReceiver);
         rb.isKinematic = false;
     }

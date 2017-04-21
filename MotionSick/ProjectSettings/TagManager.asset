@@ -7,6 +7,7 @@ TagManager:
   - enemy
   - winCondition
   - Floor
+  - Pickup
   layers:
   - Default
   - TransparentFX
